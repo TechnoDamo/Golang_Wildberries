@@ -1,0 +1,63 @@
+@startuml
+entity "customers" as Customers {
+  * id: VARCHAR <<PK>>
+} 
+entity "orders" as Orders {
+  * id : VARCHAR <<PK>>
+  customer_id : VARCHAR <<FK>>
+  --
+  track_number : VARCHAR
+  entry : VARCHAR
+}
+
+entity "deliveries" as Deliveries {
+  * id : SERIAL <<PK>>
+  order_uid : VARCHAR <<FK>>
+  --
+  name : VARCHAR
+  phone : VARCHAR
+  zip : VARCHAR
+  city : VARCHAR
+  address : VARCHAR
+  region : VARCHAR
+  email : VARCHAR
+}
+
+entity "payments" as Payments {
+  * id : SERIAL <<PK>>
+  order_uid : VARCHAR <<FK>>
+  --
+  transaction : VARCHAR 
+  request_id : VARCHAR
+  currency : VARCHAR
+  provider : VARCHAR
+  amount : INTEGER
+  payment_dt : BIGINT
+  bank : VARCHAR
+  delivery_cost : INTEGER
+  goods_total : INTEGER
+  custom_fee : INTEGER
+}
+
+entity "items" as Items {
+  * id : SERIAL <<PK>>
+  order_uid : VARCHAR <<FK>>
+  --
+  chrt_id : BIGINT
+  track_number : VARCHAR
+  price : INTEGER
+  name : VARCHAR
+  sale : INTEGER
+  size : VARCHAR
+  total_price : INTEGER
+  nm_id : BIGINT
+  brand : VARCHAR
+  status : INTEGER
+}
+
+Customers ||--o{ Orders: has 
+Orders ||--|| Deliveries : has
+Orders ||--|| Payments : paid by
+Orders ||--o{ Items : contains
+
+@enduml
