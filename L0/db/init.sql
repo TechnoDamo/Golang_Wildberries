@@ -57,7 +57,7 @@ CREATE TABLE task.items (
 );
 
 -- 3. Create a user with limited privileges
-CREATE USER task_user WITH PASSWORD 'strong_password_here';
+CREATE USER task_user WITH PASSWORD 'pass123!!!';
 
 -- 4. Grant CRUD privileges (select, insert, update, delete)
 GRANT USAGE ON SCHEMA task TO task_user;

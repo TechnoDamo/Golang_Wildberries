@@ -1,0 +1,18 @@
+docker build -t technodamo/wildberries:l0-pg .
+docker push technodamo/wildberries:l0-pg
+
+
+docker stop L0-pg 2>/dev/null || true
+docker rm L0-pg 2>/dev/null || true
+docker volume rm l0_pg_data 2>/dev/null || true
+docker volume create l0_pg_data 2>/dev/null || true
+docker rmi technodamo/wildberries:l0-pg 2>/dev/null || true
+docker pull technodamo/wildberries:l0-pg 2>/dev/null || true
+docker run -d \
+  --name L0-pg \
+  -e POSTGRES_PASSWORD=pass123!!! \
+  -e POSTGRES_DB=L0 \
+  -p 5432:5432 \
+  -v l0_pg_data:/var/lib/postgresql/data \
+  technodamo/wildberries:l0-pg
+
