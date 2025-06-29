@@ -1,0 +1,2 @@
+docker build -t technodamo/wildberries:l0-kafka .
+docker exec -it kafka_kafka_1 /opt/bitnami/kafka/bin/kafka-topics.sh --create --topic orders --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Lookup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px 0;
+      width: 300px;
+    }
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .section-title {
+      margin-top: 30px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Order Lookup</h1>
+  <input type="text" id="orderIdInput" placeholder="Enter Order ID" />
+  <button onclick="fetchOrder()">Get Order</button>
+
+  <div id="output"></div>
+
+  <script>
+    async function fetchOrder() {
+      const orderId = document.getElementById('orderIdInput').value.trim();
+      if (!orderId) {
+        alert("Please enter an order ID.");
+        return;
+      }
+
+      try {
+        const response = await fetch(`/order/${orderId}`);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        document.getElementById("output").innerHTML = renderOrder(data);
+      } catch (err) {
+        document.getElementById("output").innerHTML = `<p style="color: red;">${err}</p>`;
+      }
+    }
+
+    function renderOrder(order) {
+      const delivery = order.delivery;
+      const payment = order.payment;
+      const items = order.items;
+
+      let html = `<div class="section-title">Order Info</div><table>
+        <tr><th>order_uid</th><td>${order.order_uid}</td></tr>
+        <tr><th>track_number</th><td>${order.track_number}</td></tr>
+        <tr><th>entry</th><td>${order.entry}</td></tr>
+        <tr><th>customer_id</th><td>${order.customer_id}</td></tr>
+        <tr><th>created_at</th><td>${order.created_at}</td></tr>
+      </table>`;
+
+      html += `<div class="section-title">Delivery Info</div><table>`;
+      for (const [key, value] of Object.entries(delivery)) {
+        html += `<tr><th>${key}</th><td>${value}</td></tr>`;
+      }
+      html += `</table>`;
+
+      html += `<div class="section-title">Payment Info</div><table>`;
+      for (const [key, value] of Object.entries(payment)) {
+        html += `<tr><th>${key}</th><td>${value}</td></tr>`;
+      }
+      html += `</table>`;
+
+      html += `<div class="section-title">Items</div><table><tr>`;
+      const itemKeys = Object.keys(items[0] || {});
+      for (const key of itemKeys) {
+        html += `<th>${key}</th>`;
+      }
+      html += `</tr>`;
+      for (const item of items) {
+        html += `<tr>`;
+        for (const key of itemKeys) {
+          html += `<td>${item[key]}</td>`;
+        }
+        html += `</tr>`;
+      }
+      html += `</table>`;
+
+      return html;
+    }
+  </script>
+</body>
+</html>

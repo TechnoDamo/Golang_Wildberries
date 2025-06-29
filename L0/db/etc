@@ -1,6 +1,12 @@
+# Database deployment commands
+# Set environment variables before running:
+# export DB_PASSWORD=your_password
+# export DB_PORT=5432
+# export DB_NAME=L0
+# export DB_USER=task_user
+
 docker build -t technodamo/wildberries:l0-pg .
 docker push technodamo/wildberries:l0-pg
-
 
 docker stop L0-pg 2>/dev/null || true
 docker rm L0-pg 2>/dev/null || true
@@ -10,8 +16,9 @@ docker rmi technodamo/wildberries:l0-pg 2>/dev/null || true
 docker pull technodamo/wildberries:l0-pg 2>/dev/null || true
 docker run -d \
   --name L0-pg \
-  -e POSTGRES_PASSWORD=pass123!!! \
-  -e POSTGRES_DB=L0 \
-  -p 5432:5432 \
+  -e POSTGRES_PASSWORD=${DB_PASSWORD:-pass123!!!} \
+  -e POSTGRES_DB=${DB_NAME:-L0} \
+  -e POSTGRES_USER=${DB_USER:-task_user} \
+  -p ${DB_PORT:-5432}:5432 \
   -v l0_pg_data:/var/lib/postgresql/data \
   technodamo/wildberries:l0-pg

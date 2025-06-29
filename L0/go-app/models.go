@@ -1,14 +1,15 @@
 package main
 
 type Order struct {
-	OrderUID    string    `json:"order_uid"`
-	TrackNumber string    `json:"track_number"`
-	Entry       string    `json:"entry"`
-	Delivery    Delivery  `json:"delivery"`
-	Payment     Payment   `json:"payment"`
-	Items       []Item    `json:"items"`
-	Locale      string    `json:"locale"`
-	CustomerID  string    `json:"customer_id"`
+	OrderUID    string   `json:"order_uid"`
+	TrackNumber string   `json:"track_number"`
+	Entry       string   `json:"entry"`
+	Delivery    Delivery `json:"delivery"`
+	Payment     Payment  `json:"payment"`
+	Items       []Item   `json:"items"`
+	Locale      string   `json:"locale"`
+	CustomerID  string   `json:"customer_id"`
+	CreatedAt   string   `json:"date_created"`
 }
 
 type Delivery struct {
@@ -22,16 +23,16 @@ type Delivery struct {
 }
 
 type Payment struct {
-	Transaction   string `json:"transaction"`
-	RequestID     string `json:"request_id"`
-	Currency      string `json:"currency"`
-	Provider      string `json:"provider"`
-	Amount        int    `json:"amount"`
-	PaymentDT     int64  `json:"payment_dt"`
-	Bank          string `json:"bank"`
-	DeliveryCost  int    `json:"delivery_cost"`
-	GoodsTotal    int    `json:"goods_total"`
-	CustomFee     int    `json:"custom_fee"`
+	Transaction  string `json:"transaction"`
+	RequestID    string `json:"request_id"`
+	Currency     string `json:"currency"`
+	Provider     string `json:"provider"`
+	Amount       int    `json:"amount"`
+	PaymentDT    int64  `json:"payment_dt"`
+	Bank         string `json:"bank"`
+	DeliveryCost int    `json:"delivery_cost"`
+	GoodsTotal   int    `json:"goods_total"`
+	CustomFee    int    `json:"custom_fee"`
 }
 
 type Item struct {

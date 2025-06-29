@@ -11,7 +11,8 @@ CREATE TABLE task.orders (
     id VARCHAR PRIMARY KEY,
     customer_id VARCHAR REFERENCES task.customers(id),
     track_number VARCHAR,
-    entry VARCHAR
+    entry VARCHAR,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE task.deliveries (
@@ -56,8 +57,14 @@ CREATE TABLE task.items (
     status INTEGER
 );
 
--- 3. Create a user with limited privileges
-CREATE USER task_user WITH PASSWORD 'pass123!!!';
+-- 3. Create task_user with limited privileges (only if it doesn't exist)
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = 'task_user') THEN
+        CREATE USER task_user WITH PASSWORD 'pass123!!!';
+    END IF;
+END
+$$;
 
 -- 4. Grant schema usage
 GRANT USAGE ON SCHEMA task TO task_user;

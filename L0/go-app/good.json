@@ -1,0 +1,42 @@
+{
+    "order_uid": "aa27f74d",
+    "track_number": "WBILM7249FA",
+    "entry": "WBIL",
+    "delivery": {
+        "name": "Test Testov",
+        "phone": "+9720000000",
+        "zip": "2639809",
+        "city": "Kiryat Mozkin",
+        "address": "Ploshad Mira 15",
+        "region": "Kraiot",
+        "email": "test@gmail.com"
+    },
+    "payment": {
+        "transaction": "aa27f74d",
+        "request_id": "",
+        "currency": "USD",
+        "provider": "wbpay",
+        "amount": 1817,
+        "payment_dt": 1637907727,
+        "bank": "alpha",
+        "delivery_cost": 1500,
+        "goods_total": 317,
+        "custom_fee": 0
+    },
+    "items": [
+        {
+            "chrt_id": 9016217,
+            "track_number": "WBILM7249FA",
+            "price": 453,
+            "name": "Mascaras",
+            "sale": 30,
+            "size": "0",
+            "total_price": 317,
+            "nm_id": 2389212,
+            "brand": "Vivienne Sabo",
+            "status": 202
+        }
+    ],
+    "locale": "",
+    "customer_id": "fb6c1745"
+}

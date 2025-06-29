@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# Generate dynamic values
 ORDER_UID="$(uuidgen | tr '[:upper:]' '[:lower:]' | cut -d'-' -f1)"
 TRACK_NUMBER="WBILM$(openssl rand -hex 3 | tr '[:lower:]' '[:upper:]')"
 CHRT_ID=$(( (RANDOM % 1000000) + 9000000 ))
 CUSTOMER_ID="$(uuidgen | cut -c1-8)"
 TRANSACTION="$ORDER_UID"
 DATE_CREATED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+REQUEST_ID="$(uuidgen | cut -c1-8)"
 
 
-# Create JSON payload inline with updated fields
+
 read -r -d '' PAYLOAD <<EOF
 {
   "order_uid": "$ORDER_UID",
@@ -26,7 +26,7 @@ read -r -d '' PAYLOAD <<EOF
   },
   "payment": {
     "transaction": "$TRANSACTION",
-    "request_id": "",
+    "request_id": "$REQUEST_ID",
     "currency": "USD",
     "provider": "wbpay",
     "amount": 1817,
