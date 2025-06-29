@@ -59,11 +59,20 @@ CREATE TABLE task.items (
 -- 3. Create a user with limited privileges
 CREATE USER task_user WITH PASSWORD 'pass123!!!';
 
--- 4. Grant CRUD privileges (select, insert, update, delete)
+-- 4. Grant schema usage
 GRANT USAGE ON SCHEMA task TO task_user;
 
+-- Grant privileges on all existing tables in the schema
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA task TO task_user;
+GRANT TRUNCATE ON ALL TABLES IN SCHEMA task TO task_user;
 
--- Also ensure future tables are automatically accessible
+-- Grant privileges on all existing sequences in the schema
+GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA task TO task_user;
+
+-- Set default privileges for future tables created by the current user in the schema
 ALTER DEFAULT PRIVILEGES IN SCHEMA task
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO task_user;
+
+-- Set default privileges for future sequences created by the current user in the schema
+ALTER DEFAULT PRIVILEGES IN SCHEMA task
+GRANT USAGE, SELECT, UPDATE ON SEQUENCES TO task_user;

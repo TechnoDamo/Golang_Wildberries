@@ -15,4 +15,3 @@ docker run -d \
   -p 5432:5432 \
   -v l0_pg_data:/var/lib/postgresql/data \
   technodamo/wildberries:l0-pg
-
