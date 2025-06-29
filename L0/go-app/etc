@@ -1,0 +1,4 @@
+curl -X POST http://localhost:8080/order \
+  -H "Content-Type: application/json" \
+  -d @sample.json
+
